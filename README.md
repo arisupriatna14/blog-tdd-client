@@ -1,4 +1,4 @@
-# blog-tdd-client
+# Blog TDD Client
 
 ## Project setup
 ```
