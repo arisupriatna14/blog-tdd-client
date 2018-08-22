@@ -1,8 +1,8 @@
 <template>
   <v-container grid-list-md>
     <v-layout row wrap>
-      <v-flex xs3 />
-      <v-flex xs6>
+      <v-flex sm3 xs12/>
+      <v-flex sm6 xs12>
         <h1>SIGN UP</h1>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
@@ -22,8 +22,11 @@
           </v-text-field>
           <v-text-field
             v-model="password"
+            :append-icon="show1 ? 'visibility_off' : 'visibility'"
+            :type="show1 ? 'text' : 'password'"
+            @click:append="show1 = !show1"
+            :rules="[rules.length(6)]"
             label="Password"
-            type="password"
           >
 
           </v-text-field>
@@ -47,13 +50,14 @@
           </v-btn>
         </v-form>
       </v-flex>
-      <v-flex xs3 />
+      <v-flex sm3 xs12 />
     </v-layout>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios';
+import swal from 'sweetalert';
 
 export default {
   data: () => ({
@@ -69,9 +73,14 @@ export default {
       v => !!v || 'E-mail is required',
       v => /.+@.+/.test(v) || 'E-mail must be valid',
     ],
+    password: '',
+    rules: {
+      length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+    },
     select: null,
     checkbox: false,
-    password: '',
+    show1: false,
+    isToken: false,
   }),
 
   methods: {
@@ -86,14 +95,24 @@ export default {
           .then(() => {
             this.$router.push('/login');
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
+            swal('Email already exist', 'Try Again!', 'error');
           });
       }
     },
     clear() {
       this.$refs.form.reset();
     },
+    checkToken() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.isToken = true;
+        this.$router.push('/');
+      }
+    },
+  },
+  mounted() {
+    this.checkToken();
   },
 };
 </script>

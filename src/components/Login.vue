@@ -1,8 +1,8 @@
 <template>
   <v-container grid-list-md>
     <v-layout row wrap>
-      <v-flex xs3 />
-      <v-flex xs6>
+      <v-flex sm3 xs12/>
+      <v-flex sm6 xs12>
         <h1>SIGN IN</h1>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
@@ -38,7 +38,7 @@
           </v-btn>
         </v-form>
       </v-flex>
-      <v-flex xs3 />
+      <v-flex sm3 xs12 />
     </v-layout>
   </v-container>
 </template>
@@ -46,16 +46,12 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert';
+import { setTimeout } from 'timers';
 
 export default {
   data: () => ({
     name: 'Register',
     valid: true,
-    username: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
     email: '',
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -64,6 +60,7 @@ export default {
     select: null,
     checkbox: false,
     password: '',
+    isToken: false,
   }),
 
   methods: {
@@ -75,18 +72,31 @@ export default {
           password: this.password,
           checkbox: this.checkbox,
         })
-          .then(() => {
+          .then((result) => {
+            localStorage.setItem('token', result.data.token);
             swal('Sign in success', 'Mediary, Inc', 'success');
-            this.$router.push('/');
+            setTimeout(() => {
+              this.$router.push('/');
+            }, 2000);
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
+            swal('Email or password failed', 'Try again!', 'error');
           });
       }
     },
     clear() {
       this.$refs.form.reset();
     },
+    checkToken() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.isToken = true;
+        this.$router.push('/');
+      }
+    },
+  },
+  mounted() {
+    this.checkToken();
   },
 };
 </script>
