@@ -6,16 +6,19 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat>
-        <router-link v-if="!isLogin" to="/login" class="btn">SIGN IN</router-link>
-        <router-link v-if="isLogin" to="/new-story" class="btn">New Post</router-link>
-      </v-btn>
-      <v-btn flat>
-        <router-link v-if="!isLogin" to="/register" class="btn">SIGN UP</router-link>
-        <router-link v-if="isLogin" to="" @click="logout" class="btn">Logout</router-link>
-      </v-btn>
-      <v-btn flat>
-        <router-link v-if="isLogin" to="/about" class="btn">About</router-link>
+      
+      <v-btn flat to="/new-story" class="btn" v-if="isLogin">NEW POST</v-btn>
+      <v-btn flat to="/login" v-if="!isLogin" class="btn">SIGN IN</v-btn>
+      <v-btn flat to="/register" class="btn" v-if="!isLogin">SIGN UP</v-btn>
+      <v-btn flat @click="logout" class="btn" v-if="isLogin">LOGOUT</v-btn>
+      <v-btn flat to="/about" class="btn">ABOUT</v-btn>
+      <v-btn flat to="/me" v-if="isLogin">
+        <v-avatar color="blue" v-if="isLogin" flat>
+          <img
+            src="https://avatars3.githubusercontent.com/u/34597567?s=400&u=be5e2a2274d23b820acf23e48830f7cc42893df3&v=4"
+            alt="ari"
+          >
+        </v-avatar>
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -27,7 +30,7 @@ import swal from 'sweetalert';
 export default {
   name: 'Navbar',
   data: () => ({
-    isLogin: false,
+    isLogin: localStorage.getItem('token'),
   }),
   methods: {
     checkLogin() {

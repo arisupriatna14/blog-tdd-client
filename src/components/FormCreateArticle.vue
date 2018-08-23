@@ -46,9 +46,6 @@ export default {
   }),
   methods: {
     submit() {
-      console.log('ini author', this.author);
-      console.log('ini title ===>', this.title);
-      console.log('ini content ===>', this.myHTML);
       axios({
         method: 'POST',
         url: 'http://localhost:3030/articles',
@@ -62,7 +59,6 @@ export default {
         },
       })
         .then((result) => {
-          console.log('success ==>', result)
           swal('New post success publish', '', 'success');
           this.$router.push('/');
           

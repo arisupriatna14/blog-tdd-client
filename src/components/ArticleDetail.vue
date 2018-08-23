@@ -1,6 +1,12 @@
 <template>
   <div>
     <h1>{{ articles.title }}</h1>
+    <v-avatar color="blue">
+      <img
+        src="https://avatars3.githubusercontent.com/u/34597567?s=400&u=be5e2a2274d23b820acf23e48830f7cc42893df3&v=4"
+        alt="John"
+      >
+    </v-avatar>
     <p>{{ articles.author }}</p>
     <br>
     <div id="content" v-html="articles.content"></div>
@@ -38,12 +44,12 @@ export default {
     },
   },
   watch: {
-    id() {
+    id(value) {
       this.filterListArtilce();
     },
   },
   created() {
-    this.filterListArtilce();
+    this.filterListArtilce(); 
   },
 };
 </script>

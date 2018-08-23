@@ -75,9 +75,7 @@ export default {
           .then((result) => {
             localStorage.setItem('token', result.data.token);
             swal('Sign in success', 'Mediary, Inc', 'success');
-            setTimeout(() => {
-              this.$router.push('/');
-            }, 2000);
+            this.$router.push('/');
           })
           .catch(() => {
             swal('Email or password failed', 'Try again!', 'error');

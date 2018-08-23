@@ -12,8 +12,18 @@ export default {
   name: 'home',
   components: {
     ListArticle,
-    HelloWorld
+    HelloWorld,
   },
+  // mounted() {
+  //   this.$router.push('/@arisupriatna/5b7e26e1c80cb708488c7eff/');
+  // },
+  // watch: {
+  //   '$route'() {
+  //     if (this.$route.params.id === undefined) {
+  //       this.$router.push('/@arisupriatna/5b7e26e1c80cb708488c7eff/');
+  //     }
+  //   },
+  // },
 };
 </script>
 
