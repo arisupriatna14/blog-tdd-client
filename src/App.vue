@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Navbar></Navbar>
+    <Navbar :propsislogin="islogin"></Navbar>
     <br>
-    <router-view></router-view>
+    <router-view @changeStatusLogin="changeLogin"></router-view>
   </div>
 </template>
 
@@ -10,8 +10,30 @@
 import Navbar from '@/views/Navbar.vue';
 
 export default {
+  data () {
+    return {
+      islogin: false
+    }
+  },
   components: {
     Navbar,
+  },
+  methods: {
+    changeLogin (result) {
+      if (result) {
+        localStorage.setItem('token', result);
+      } 
+      let token = localStorage.getItem('token')
+      if (token) {
+        this.islogin = true;
+      } 
+    },
+  },
+  mounted() {
+    this.changeLogin();
+  },
+  created() {
+    this.changeLogin();
   },
 };
 </script>

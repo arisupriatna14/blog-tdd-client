@@ -20,6 +20,7 @@ Vue.use(Vuetify, {
     accent: colors.indigo.base, // #3F51B5
   },
 });
+
 Vue.config.productionTip = false;
 
 new Vue({

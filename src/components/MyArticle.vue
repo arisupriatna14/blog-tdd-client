@@ -4,7 +4,7 @@
       <v-flex xs12 sm12 md12 lg12>
         <h1>My Article</h1>
       </v-flex>
-      <v-flex xs12 sm12 md12 lg4 v-for="article in myArticles" :key="article.id">
+      <v-flex xs12 sm12 md12 lg4 v-for="(article, index) in myArticles" :key="article.id">
         <v-card>
           <v-card-title primary-title>
             <div>
@@ -13,8 +13,8 @@
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn flat color="orange" :to="{ path: `/me/update-article/${article.id}`, params: { id: article.id } }">Edit</v-btn>
-            <v-btn flat color="orange" @click="deleteArticle(article.id)">Delete</v-btn>
+            <v-btn flat color="orange" :to="{ path: `/me/update-article/${article._id}`, params: { id: article._id } }">Edit</v-btn>
+            <v-btn flat color="orange" @click="deleteArticle(index)">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex> 
@@ -46,20 +46,14 @@ export default {
         },
       })
         .then((result) => {
-          result.data.result.forEach((article) => {
-            this.myArticles.push({
-              id: article._id,
-              author: article.author,
-              title: article.title,
-              content: article.content,
-            });
-          });
+          this.myArticles = result.data.result
         })
         .catch((err) => {
           swal('Get my article failed.', 'Try again!', 'error')
         });
     },
-    deleteArticle(id) {
+    deleteArticle(index) {
+      let id = this.myArticles[index]._id
       axios({
         method: 'DELETE',
         url: `http://localhost:3030/articles/${id}`,
@@ -69,6 +63,7 @@ export default {
       })
         .then((result) => {
           swal('Delete articles success', '', 'success')
+          this.myArticles.splice(index,1)
         })
         .catch((err) => {
           swal('Delete articles failed', 'Try again!', 'error')

@@ -21,7 +21,8 @@
         </v-expansion-panel>
       </v-flex>
       <v-flex xs12 lg8 sm12>
-        <router-view></router-view>
+        <h1 v-if="articles">Welcome to Mediary</h1>
+        <router-view v-if="articles"></router-view>
       </v-flex>
     </v-layout>
   </v-container>

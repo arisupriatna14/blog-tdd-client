@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import ArticleDetail from './components/ArticleDetail.vue';
 // import ListArticle from './views/ListArticle.vue';
 import FormUpdateArticle from './components/FormUpdateArticle.vue';
+import Comment from './components/Comment.vue';
 
 Vue.use(Router);
 
@@ -19,6 +20,10 @@ export default new Router({
         path: '/:author/:id',
         props: true,
         component: ArticleDetail,
+      }, {
+        path: '/:author/:id/comments',
+        props: true,
+        component: Comment,
       }],
     },
     {

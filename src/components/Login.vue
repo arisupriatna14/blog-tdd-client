@@ -46,7 +46,6 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert';
-import { setTimeout } from 'timers';
 
 export default {
   data: () => ({
@@ -73,8 +72,8 @@ export default {
           checkbox: this.checkbox,
         })
           .then((result) => {
-            localStorage.setItem('token', result.data.token);
             swal('Sign in success', 'Mediary, Inc', 'success');
+            this.$emit('changeStatusLogin', result.data.token)
             this.$router.push('/');
           })
           .catch(() => {

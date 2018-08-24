@@ -10,15 +10,30 @@
     <p>{{ articles.author }}</p>
     <br>
     <div id="content" v-html="articles.content"></div>
+    <br>
+    <v-btn 
+      :to="{ 
+        path: `/@${articles.author}/${articles.id}/comments`, 
+        params: { id: articles.id } 
+      }" 
+      style="color: black; text-decoration: none;"
+    >
+      Comment
+    </v-btn>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Comment from '@/components/Comment.vue';
 
 export default {
   props: ['id'],
   name: 'ArticleDetail',
+  components: {
+    Comment,
+  },
   data: () => ({
     articles: '',
   }),
@@ -27,14 +42,14 @@ export default {
       axios.get('http://localhost:3030/articles')
         .then((result) => {
           result.data.resultArr.forEach((article) => {
-            const idArticle = article.id;
-            if (idArticle === this.id) {
+            if (article.id === this.id) {
               this.articles = {
-                id: idArticle,
+                id: article.id,
                 title: article.title,
                 author: article.author,
                 content: article.content,
               };
+              localStorage.setItem('articleId', this.id)
             }
           });
         })
