@@ -4,8 +4,11 @@ import wysiwyg from 'vue-wysiwyg';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import colors from 'vuetify/es5/util/colors';
+import {} from 'dotenv/config';
 import App from './App.vue';
 import router from './router';
+
+require('dotenv').config();
 
 Vue.use(wysiwyg, {
   hideModules: { bold: true },

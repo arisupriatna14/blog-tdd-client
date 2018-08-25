@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import ArticleDetail from './components/ArticleDetail.vue';
-// import ListArticle from './views/ListArticle.vue';
 import FormUpdateArticle from './components/FormUpdateArticle.vue';
 import Comment from './components/Comment.vue';
+import ListComment from './components/ListComment.vue';
 
 Vue.use(Router);
 
@@ -17,13 +17,14 @@ export default new Router({
       name: 'home',
       component: Home,
       children: [{
-        path: '/:author/:id',
+        path: '/:author/:id/',
         props: true,
         component: ArticleDetail,
-      }, {
-        path: '/:author/:id/comments',
-        props: true,
-        component: Comment,
+        children: [{
+          path: '/:author/:id/comments',
+          props: true,
+          component: Comment,
+        }],
       }],
     },
     {
@@ -54,6 +55,10 @@ export default new Router({
         path: '/me/update-article/:id',
         props: true,
         component: FormUpdateArticle,
+      }, {
+        path: '/me/list-comments/:id',
+        props: true,
+        component: ListComment,
       }],
     },
   ],

@@ -9,12 +9,18 @@
           <v-card-title primary-title>
             <div>
               <h3 class="mb-3">{{ article.title }}</h3>
-              <p>{{ article.author }}</p>
             </div>
           </v-card-title>
           <v-card-actions>
-            <v-btn flat color="orange" :to="{ path: `/me/update-article/${article._id}`, params: { id: article._id } }">Edit</v-btn>
-            <v-btn flat color="orange" @click="deleteArticle(index)">Delete</v-btn>
+            <v-btn color="orange" :to="{ path: `/me/update-article/${article._id}`, params: { id: article._id } }">
+              <v-icon color="white">fa fa-pencil-square-o</v-icon>
+            </v-btn>
+            <v-btn color="orange" @click="deleteArticle(index)">
+              <v-icon color="white">fa fa-trash-o</v-icon>
+            </v-btn>
+            <v-btn color="orange" :to="{ path: `/me/list-comments/${article._id}`, params: { id: article._id} }">
+              <v-icon color="white">fa fa-comments</v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex> 

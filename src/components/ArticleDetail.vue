@@ -1,21 +1,12 @@
 <template>
   <div>
     <h1>{{ articles.title }}</h1>
-    <v-avatar color="blue">
-      <img
-        src="https://avatars3.githubusercontent.com/u/34597567?s=400&u=be5e2a2274d23b820acf23e48830f7cc42893df3&v=4"
-        alt="John"
-      >
-    </v-avatar>
     <p>{{ articles.author }}</p>
     <br>
     <div id="content" v-html="articles.content"></div>
     <br>
     <v-btn 
-      :to="{ 
-        path: `/@${articles.author}/${articles.id}/comments`, 
-        params: { id: articles.id } 
-      }" 
+      :to="{ path: `/@${articles.authorConvert}/${articles.id}/comments`, params: { id: articles.id } }" 
       style="color: black; text-decoration: none;"
     >
       Comment
@@ -48,8 +39,10 @@ export default {
                 title: article.title,
                 author: article.author,
                 content: article.content,
+                authorConvert: article.author.split(' ').join('').toLowerCase()
               };
               localStorage.setItem('articleId', this.id)
+              localStorage.setItem('author', this.articles.authorConvert)
             }
           });
         })

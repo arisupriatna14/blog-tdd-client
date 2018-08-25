@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "dotenv": "^6.0.0",
     "http2": "^3.3.7",
+    "jsonwebtoken": "^8.3.0",
     "material-design-icons-iconfont": "^3.0.3",
     "sweetalert": "^2.1.0",
     "vue": "^2.5.17",

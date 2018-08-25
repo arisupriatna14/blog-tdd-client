@@ -44,6 +44,8 @@ export default {
     author: '',
     content: '',
     data: '',
+    authorArticle: localStorage.getItem('author'),
+    articleId: localStorage.getItem('articleId')
   }),
   methods: {
     dataUpdate() {
@@ -84,7 +86,7 @@ export default {
       })
         .then(() => {
           swal('Update success', '', 'success');
-          this.$router.push('/me');
+          this.$router.push(`/@${this.authorArticle}/${this.articleId}`);
         })
         .catch(() => {
           swal('Update failed', 'Try again!', 'error');

@@ -1,23 +1,18 @@
 <template>
-  <v-toolbar>
+  <v-toolbar class="indigo lighten-1 white--text text-xs-center"> 
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-title>
-      <router-link to="/" id="title">MEDIARY</router-link>
+      <router-link to="/" id="title" class="lighten-1 white--text">MEDIARY</router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat to="/new-story" class="btn" v-if="propsislogin">NEW POST</v-btn>
-      <v-btn flat to="/login" v-if="!propsislogin" class="btn">SIGN IN</v-btn>
-      <v-btn flat to="/register" class="btn" v-if="!propsislogin">SIGN UP</v-btn>
-      <v-btn flat @click="logout" class="btn" v-if="propsislogin">LOGOUT</v-btn>
-      <v-btn flat to="/about" class="btn">ABOUT</v-btn>
+      <v-btn flat to="/new-story" class="lighten-1 white--text" v-if="propsislogin">NEW POST</v-btn>
+      <v-btn flat to="/login" v-if="!propsislogin" class="lighten-1 white--text">SIGN IN</v-btn>
+      <v-btn flat to="/register" class="lighten-1 white--text" v-if="!propsislogin">SIGN UP</v-btn>
+      <v-btn flat @click="logout" class="lighten-1 white--text" v-if="propsislogin">LOGOUT</v-btn>
+      <v-btn flat to="/about" class="lighten-1 white--text">ABOUT</v-btn>
       <v-btn flat to="/me" v-if="propsislogin">
-        <v-avatar color="blue" v-if="propsislogin" flat>
-          <img
-            src="https://avatars3.githubusercontent.com/u/34597567?s=400&u=be5e2a2274d23b820acf23e48830f7cc42893df3&v=4"
-            alt="ari"
-          >
-        </v-avatar>
+        <v-icon color="white">account_circle</v-icon>
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -33,10 +28,10 @@ export default {
   }),
   methods: {
     logout() {
-      // this.$emit('')
       localStorage.removeItem('token');
       swal('Logout success', '', 'success');
-      this.$router.push('/');
+      // this.$emit('changeStatusLogin', 'token')
+      this.$router.replace('/login');
     },
   },
 };
