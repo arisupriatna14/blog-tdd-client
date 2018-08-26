@@ -48,7 +48,7 @@ export default {
     submit() {
       axios({
         method: 'POST',
-        url: 'http://localhost:3030/articles',
+        url: 'http://blog-api.arisupriatna.com/articles',
         headers: {
           Authorization: localStorage.getItem('token'),
         },
@@ -58,12 +58,11 @@ export default {
           content: this.myHTML,
         },
       })
-        .then((result) => {
+        .then(() => {
           swal('New post success publish', '', 'success');
           this.$router.push('/');
-          
         })
-        .catch((err) => {
+        .catch(() => {
           swal('Post failed to publish', 'Try again!', 'error');
         });
     },

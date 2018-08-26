@@ -27,8 +27,7 @@
           >
             <div slot="header" style="font-size: 16px;">{{ article.title }}</div>
             <v-card>
-              <router-link 
-                :to="{ path: `/@${article.author.split(' ').join('').toLowerCase()}/${article.id}/`, params: { id: article.id } }" style="color: white; text-decoration: none;"
+              <router-link :to="{ path: `/@${article.author.split(' ').join('').toLowerCase()}/${article.id}/`, params: { id: article.id } }" style="color: white; text-decoration: none;"
               >
                 <v-btn color="blue">
                     Read More
@@ -53,9 +52,9 @@ export default {
   }),
   methods: {
     listArticle() {
-      axios.get('http://localhost:3030/articles')
+      axios.get('http://blog-api.arisupriatna.com/articles')
         .then(({ data }) => {
-          this.articles = data.resultArr
+          this.articles = data.resultArr;
         })
         .catch((err) => {
           console.log(err);

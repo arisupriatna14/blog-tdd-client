@@ -65,7 +65,7 @@ export default {
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        axios.post('http://localhost:3030/users/login', {
+        axios.post('http://blog-api.arisupriatna.com/users/login', {
           username: this.username,
           email: this.email,
           password: this.password,
@@ -73,7 +73,7 @@ export default {
         })
           .then((result) => {
             swal('Sign in success', 'Mediary, Inc', 'success');
-            this.$emit('changeStatusLogin', result.data.token)
+            this.$emit('changeStatusLogin', result.data.token);
             this.$router.push('/');
           })
           .catch(() => {

@@ -29,13 +29,14 @@
 
 <script>
 import axios from 'axios';
+import swal from 'sweetalert';
 
 export default {
   props: ['id'],
   data: () => ({
     listComments: [],
-    url: 'http://localhost:3030/comments/',
-    token: localStorage.getItem('token')
+    url: 'http://blog-api.arisupriatna.com/comments/',
+    token: localStorage.getItem('token'),
   }),
   methods: {
     getAllCommentByIdArticle() {
@@ -48,10 +49,10 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     },
     deleteComment(index) {
-      let id = this.listComments[index]._id
+      const id = this.listComments[index]._id;
       axios({
         method: 'DELETE',
         url: this.url + id,
@@ -74,8 +75,8 @@ export default {
   watch: {
     id() {
       this.getAllCommentByIdArticle();
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -23,7 +23,7 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-      </v-flex> 
+      </v-flex>
       <v-flex xs12 lg12 md12>
         <router-view></router-view>
       </v-flex>
@@ -46,34 +46,34 @@ export default {
     getMyArticle() {
       axios({
         method: 'GET',
-        url: 'http://localhost:3030/articles/my-articles',
+        url: 'http://blog-api.arisupriatna.com/articles/my-articles',
         headers: {
           Authorization: this.token,
         },
       })
         .then((result) => {
-          this.myArticles = result.data.result
+          this.myArticles = result.data.result;
         })
-        .catch((err) => {
-          swal('Get my article failed.', 'Try again!', 'error')
+        .catch(() => {
+          swal('Get my article failed.', 'Try again!', 'error');
         });
     },
     deleteArticle(index) {
-      let id = this.myArticles[index]._id
+      const id = this.myArticles[index]._id;
       axios({
         method: 'DELETE',
-        url: `http://localhost:3030/articles/${id}`,
+        url: `http://blog-api.arisupriatna.com/articles/${id}`,
         headers: {
           Authorization: this.token,
-        }
+        },
       })
-        .then((result) => {
-          swal('Delete articles success', '', 'success')
-          this.myArticles.splice(index,1)
+        .then(() => {
+          swal('Delete articles success', '', 'success');
+          this.myArticles.splice(index, 1);
         })
-        .catch((err) => {
-          swal('Delete articles failed', 'Try again!', 'error')
-        })
+        .catch(() => {
+          swal('Delete articles failed', 'Try again!', 'error');
+        });
     },
   },
   created() {

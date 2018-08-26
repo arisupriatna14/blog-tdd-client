@@ -56,12 +56,12 @@ export default {
     token: localStorage.getItem('token'),
     articleId: localStorage.getItem('articleId'),
     author: localStorage.getItem('author'),
-    url: 'http://localhost:3030/comments/',
+    url: 'http://blog-api.arisupriatna.com/comments/',
     emailFromToken: '',
   }),
   methods: {
     getEmailFromToken() {
-      this.emailFromToken = jwt.verify(this.token, process.env.VUE_APP_JWT_SECRET_KEY).email
+      this.emailFromToken = jwt.verify(this.token, process.env.VUE_APP_JWT_SECRET_KEY).email;
     },
     submitComment() {
       axios({
@@ -79,7 +79,7 @@ export default {
           swal('Add comment success', '', 'success');
           this.comments.push(data.result);
         })
-        .catch((err) => {
+        .catch(() => {
           swal('Add comment failed', '', 'error');
         });
     },
@@ -93,12 +93,12 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     },
     deleteComment(index) {
-      let id = this.comments[index]._id
-      let commentByUser = this.comments[index].user.email
-      const decoded = jwt.verify(this.token, process.env.VUE_APP_JWT_SECRET_KEY).email
+      const id = this.comments[index]._id;
+      const commentByUser = this.comments[index].user.email;
+      const decoded = jwt.verify(this.token, process.env.VUE_APP_JWT_SECRET_KEY).email;
 
       if (commentByUser === decoded) {
         axios({
@@ -116,7 +116,7 @@ export default {
             swal('Delete comment failed', 'Try again!', 'error');
           });
       } else {
-        swal('Delete failed', 'You do not have access to delete this comment!', 'warning')
+        swal('Delete failed', 'You do not have access to delete this comment!', 'warning');
       }
     },
   },
@@ -131,8 +131,8 @@ export default {
   watch: {
     id() {
       this.getComment();
-    }
-  }
+    },
+  },
 };
 </script>
 

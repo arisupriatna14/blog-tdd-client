@@ -5,8 +5,8 @@
     <br>
     <div id="content" v-html="articles.content"></div>
     <br>
-    <v-btn 
-      :to="{ path: `/@${articles.authorConvert}/${articles.id}/comments`, params: { id: articles.id } }" 
+    <v-btn
+      :to="{ path: `/@${articles.authorConvert}/${articles.id}/comments`, params: { id: articles.id } }"
       style="color: black; text-decoration: none;"
     >
       Comment
@@ -30,7 +30,7 @@ export default {
   }),
   methods: {
     filterListArtilce() {
-      axios.get('http://localhost:3030/articles')
+      axios.get('http://blog-api.arisupriatna.com/articles')
         .then((result) => {
           result.data.resultArr.forEach((article) => {
             if (article.id === this.id) {
@@ -39,10 +39,10 @@ export default {
                 title: article.title,
                 author: article.author,
                 content: article.content,
-                authorConvert: article.author.split(' ').join('').toLowerCase()
+                authorConvert: article.author.split(' ').join('').toLowerCase(),
               };
-              localStorage.setItem('articleId', this.id)
-              localStorage.setItem('author', this.articles.authorConvert)
+              localStorage.setItem('articleId', this.id);
+              localStorage.setItem('author', this.articles.authorConvert);
             }
           });
         })
@@ -52,12 +52,12 @@ export default {
     },
   },
   watch: {
-    id(value) {
+    id() {
       this.filterListArtilce();
     },
   },
   created() {
-    this.filterListArtilce(); 
+    this.filterListArtilce();
   },
 };
 </script>

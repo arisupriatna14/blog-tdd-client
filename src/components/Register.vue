@@ -86,7 +86,7 @@ export default {
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        axios.post('http://localhost:3030/users/register', {
+        axios.post('http://blog-api.arisupriatna.com/users/register', {
           username: this.username,
           email: this.email,
           password: this.password,

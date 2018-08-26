@@ -45,44 +45,44 @@ export default {
     content: '',
     data: '',
     authorArticle: localStorage.getItem('author'),
-    articleId: localStorage.getItem('articleId')
+    articleId: localStorage.getItem('articleId'),
   }),
   methods: {
     dataUpdate() {
       axios({
         method: 'GET',
-        url: 'http://localhost:3030/articles/my-articles',
+        url: 'http://blog-api.arisupriatna.com/articles/my-articles',
         headers: {
           Authorization: this.token,
-        }
+        },
       })
         .then(({ data }) => {
-          data.result.forEach((data) => {
-            if (data._id === this.id) {
+          data.result.forEach((result) => {
+            if (result._id === this.id) {
               this.data = {
-                title: data.title,
-                author: data.author,
-                content: data.content
-              }
+                title: result.title,
+                author: result.author,
+                content: result.content,
+              };
             }
-          })
+          });
         })
         .catch((err) => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     updateArticle() {
       axios({
         method: 'PUT',
-        url: `http://localhost:3030/articles/${this.id}`,
+        url: `http://blog-api.arisupriatna.com/articles/${this.id}`,
         headers: {
-          Authorization: this.token
+          Authorization: this.token,
         },
         data: {
           title: this.data.title,
           author: this.data.author,
           content: this.data.content,
-        }
+        },
       })
         .then(() => {
           swal('Update success', '', 'success');
@@ -96,7 +96,7 @@ export default {
   watch: {
     id() {
       this.dataUpdate();
-    }
+    },
   },
   created() {
     this.dataUpdate();
