@@ -34,6 +34,7 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert';
+import { setTimeout } from 'timers';
 
 export default {
   data() {
@@ -55,7 +56,10 @@ export default {
           this.myArticles = result.data.result;
         })
         .catch(() => {
-          swal('Get my article failed.', 'Try again!', 'error');
+          swal('Get my article failed. Please login', 'Try again!', 'error');
+          setTimeout(() => {
+            this.$router.push('/login')
+          }, 2000)
         });
     },
     deleteArticle(index) {

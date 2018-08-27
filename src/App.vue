@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar :propsislogin="islogin"></Navbar>
+    <Navbar :propsislogin="islogin" @logout="logout"></Navbar>
     <br>
     <router-view @changeStatusLogin="changeLogin" class="footer-height"></router-view>
     <Footer></Footer>
@@ -31,12 +31,11 @@ export default {
         this.islogin = true;
       }
     },
-    // changeLogout (result) {
-    //   // alert('changeLogout terpanggil', result)
-    //   console.log('changeLoogut ===>', this.islogin)
-    //   localStorage.removeItem('token')
-    //   this.islogin = false;
-    // }
+    logout() {
+      swal('Logout success', '', 'success');
+      this.islogin = false;
+      this.$router.push('/')
+    }
   },
   mounted() {
     this.changeLogin();

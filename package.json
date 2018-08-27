@@ -16,6 +16,7 @@
     "sweetalert": "^2.1.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
+    "vue-tinymce-editor": "^1.6.2",
     "vue-wysiwyg": "^1.7.2",
     "vuetify": "^1.1.13"
   },

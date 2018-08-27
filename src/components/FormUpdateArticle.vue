@@ -86,7 +86,7 @@ export default {
       })
         .then(() => {
           swal('Update success', '', 'success');
-          this.$router.push(`/@${this.authorArticle}/${this.articleId}`);
+          this.$router.push('/');
         })
         .catch(() => {
           swal('Update failed', 'Try again!', 'error');

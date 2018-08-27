@@ -29,9 +29,8 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('token');
-      swal('Logout success', '', 'success');
-      // this.$emit('changeStatusLogin', 'token')
-      this.$router.replace('/login');
+      this.$emit('logout');
+      // this.$router.replace('/login');
     },
   },
 };

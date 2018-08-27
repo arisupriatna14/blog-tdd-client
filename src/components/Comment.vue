@@ -2,7 +2,10 @@
   <v-container fluid grid-list-md>
     <v-card>
       <v-card-title>COMMENT</v-card-title>
-      <wysiwyg v-model="comment" />
+      <v-flex lg12 sm12 xs12 md12>
+        <!-- <wysiwyg v-model="comment" /> -->
+        <tinymce id="d1" v-model="comment"></tinymce>
+      </v-flex>
       <v-flex offset-lg10>
         <v-btn color="orange" @click="submitComment">
           <v-icon color="white">fa fa-paper-plane-o</v-icon>
@@ -45,11 +48,16 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { setTimeout } from 'timers';
+import tinymce from 'vue-tinymce-editor';
 
 dotenv.config();
 
 export default {
   props: ['id'],
+  component: {
+    tinymce
+  },
   data: () => ({
     comment: '',
     comments: '',
@@ -58,30 +66,38 @@ export default {
     author: localStorage.getItem('author'),
     url: 'http://blog-api.arisupriatna.com/comments/',
     emailFromToken: '',
+    data: ''
   }),
   methods: {
     getEmailFromToken() {
       this.emailFromToken = jwt.verify(this.token, process.env.VUE_APP_JWT_SECRET_KEY).email;
     },
     submitComment() {
-      axios({
-        method: 'POST',
-        url: this.url,
-        data: {
-          comment: this.comment,
-          articleId: this.articleId,
-        },
-        headers: {
-          Authorization: this.token,
-        },
-      })
-        .then(({ data }) => {
-          swal('Add comment success', '', 'success');
-          this.comments.push(data.result);
+      if (this.token) {
+        axios({
+          method: 'POST',
+          url: this.url,
+          data: {
+            comment: this.comment,
+            articleId: this.articleId,
+          },
+          headers: {
+            Authorization: this.token,
+          },
         })
-        .catch(() => {
-          swal('Add comment failed', '', 'error');
-        });
+          .then(({ data }) => {
+            swal('Add comment success', '', 'success');
+            this.comments.push(data.result);
+          })
+          .catch(() => {
+            swal('Add comment failed', '', 'error');
+          });
+      } else {
+        swal('Please enter first', '', 'warning')
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 2000)
+      }
     },
     getComment() {
       axios({

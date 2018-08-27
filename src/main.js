@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import wysiwyg from 'vue-wysiwyg';
+import tinymce from 'vue-tinymce-editor';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import colors from 'vuetify/es5/util/colors';
@@ -9,6 +10,8 @@ import App from './App.vue';
 import router from './router';
 
 require('dotenv').config();
+
+Vue.component('tinymce', tinymce);
 
 Vue.use(wysiwyg, {
   hideModules: { bold: true },
